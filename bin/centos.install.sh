@@ -19,8 +19,9 @@ cd ..
 
 
 echo ""
-echo "[vuejs] bower install"
-cd vuejs
+echo "[nodejs] bower install"
+cd nodejs
+npm install
 bower install
 
 popd

@@ -1,0 +1,23 @@
+{
+  "name": "tutorial01-todolist-nodejs-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bayrell",
+    "todolist"
+  ],
+  "author": "Ildar Bikmamatov",
+  "license": "MIT",
+  "homepage": "https://github.com/bayrell-tutorials/tutorial01-todolist",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-ws": "^3.0.0",
+    "multer": "^1.3.0"
+  }
+}

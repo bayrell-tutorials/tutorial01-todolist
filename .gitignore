@@ -1,6 +1,6 @@
 php-backend/vendor
-php-backend/vendor/*
 vuejs/assets
-vuejs/assets/*
 vuejs-frontend/assets
-vuejs-frontend/assets/*
+nodejs-frontend/assets
+nodejs-frontend/node_modules
+nodejs-frontend/web/assets
