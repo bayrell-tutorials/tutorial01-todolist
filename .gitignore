@@ -1,0 +1,4 @@
+php-backend/vendor
+php-backend/vendor/*
+vuejs/assets
+vuejs/assets/*

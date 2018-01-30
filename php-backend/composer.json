@@ -1,0 +1,14 @@
+{
+    "name": "bayrell-tutorials/tutorial01-todolist-php-backend",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ildar Bikmamatov",
+            "email": "vistoyn@gmail.com"
+        }
+    ],
+    "require": {
+	"php-amqplib/php-amqplib": ">=2.6.1"
+    }
+}

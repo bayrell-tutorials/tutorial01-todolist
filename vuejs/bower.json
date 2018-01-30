@@ -1,0 +1,20 @@
+{
+  "name": "tutorial01-todolist-vuejs-frontend",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "cache",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "vue": "2.2.4"
+  }
+}
