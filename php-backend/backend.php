@@ -327,3 +327,5 @@ while(count($amqp_channel->callbacks)) {
 
 $amqp_channel->close();
 $amqp_connection->close();
+
+echo "exit\n\n";
