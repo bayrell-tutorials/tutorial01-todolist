@@ -4,27 +4,19 @@ SCRIPT=$(readlink -f $0)
 SCRIPT_PATH=`dirname $SCRIPT`
 BASE_PATH=`dirname $SCRIPT_PATH`
 
-
 RETVAL=0
 
 case "$1" in
-  composer)
-    pushd $BASE_PATH
-
-    echo "Install composer files"
-    cd php-backend
-    composer install
-
-    popd
-    ;;
 
   docker)
+    rm -rf $BASE_PATH/php-backend/src/vendor
     docker build ./ -t bayrell/tutorial01-backend-php
     ;;
 
   *)
-    echo "Usage: $0 {composer|docker}"
+    echo "Usage: $0 {docker}"
     RETVAL=1
+
 esac
 
 exit $RETVAL
