@@ -81,7 +81,7 @@ var App = Vue.extend({
 			post_data['data'] = data;
 			
 			$.ajax({
-				url: '/rpc/',
+				url: '/api/',
 				method: 'post',
 				data: post_data,
 				cache: false,

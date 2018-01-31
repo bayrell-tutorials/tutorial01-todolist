@@ -220,7 +220,7 @@ Object.assign( ProxyRequest.prototype, {
 
 
 
-app.post('/rpc/', upload.array(), function (req, res) {
+app.post('/api/', upload.array(), function (req, res) {
 	
 	if (amqp_channel == null){
 		res.json({
