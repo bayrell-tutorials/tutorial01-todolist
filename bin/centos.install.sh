@@ -7,7 +7,7 @@ BASE_PATH=`dirname $SCRIPT_PATH`
 pushd $BASE_PATH
 
 echo "Install php71-php-bcmath"
-yum install php71-php-bcmath
+yum install php71-php-bcmath php71-php-pecl-mongodb
 
 echo ""
 echo "[php-backend] composer install"

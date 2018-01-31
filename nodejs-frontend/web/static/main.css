@@ -1,0 +1,15 @@
+.body_container{
+	padding: 20px;
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.form-result{
+	text-align: center;
+}
+.form-result--error{
+	color: red;
+}
+.form-result--success{
+	color: green;
+}

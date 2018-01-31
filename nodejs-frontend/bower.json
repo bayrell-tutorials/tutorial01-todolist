@@ -16,6 +16,7 @@
   "dependencies": {
     "bootstrap": "3.3.6",
     "vue": "2.2.4",
-    "stomp-websocket": "2.3.4"
+    "stomp-websocket": "2.3.4",
+    "bootstrap3-dialog": "^1.35.4"
   }
 }

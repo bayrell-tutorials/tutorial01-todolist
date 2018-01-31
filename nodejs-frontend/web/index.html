@@ -5,21 +5,42 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
 <link rel='icon' type='image/x-icon' href='/favicon.ico'/>
 <link rel='stylesheet' href='/assets/bootstrap/dist/css/bootstrap.min.css'/>
+<link rel='stylesheet' href='/assets/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css'/>
 <link rel='stylesheet' href='/static/main.css'/>
 <title>Tutorial 01</title>
 </head>
 <body class='body_container'>
 
 <div class='app_container' style='display: none;'>
-Hello
-
-<button v-on:click='sendMessage()'>Send Message</button>
-
+	
+	<h1>Todo List</h1>
+	
+	<button class='btn btn-primary' v-on:click='showAdd()'>Добавить запись</button>
+	<br/>
+	<br/>
+	
+	<table class='table table-striped table-bordered table-hover' style='width: auto;'>
+		<tr>
+			<td>ID</td>
+			<td>Имя</td>
+			<td></td>
+		</tr>
+		<tr v-for='item in items' v-bind:data-id='item.id'>
+			<td>{{ item.id }}</td>
+			<td>{{ item.name }}</td>
+			<td>
+				<button v-on:click='showEdit(item.id)' class='btn btn-success'>Edit</button>
+				<button v-on:click='showDelete(item.id)' class='btn btn-danger'>Delete</button>
+			</td>
+		</tr>
+	</table>
+	
 </div>
 
 <script src="/assets/vue/dist/vue.min.js"></script>
 <script src="/assets/jquery/dist/jquery.min.js"></script>
-<script src="/assets/stomp-websocket/lib/stomp.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
 <script src="/static/main.js"></script>
 </body>
 </html>

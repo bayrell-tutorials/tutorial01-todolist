@@ -125,7 +125,7 @@ Object.assign( ProxyRequest.prototype, {
 					
 					if (msg == null){
 						obj.send_response({
-							"error": ProxyRequest.ERROR_AMPQ,
+							"code": ProxyRequest.ERROR_AMPQ,
 							"message": "Message is null",
 						});
 						obj.deleteQueue();
@@ -189,7 +189,7 @@ Object.assign( ProxyRequest.prototype, {
 					
 					if (err) {
 						obj.response.json({
-							"error": ProxyRequest.ERROR_AMPQ,
+							"code": ProxyRequest.ERROR_AMPQ,
 							"message": "Failed to create temporary queue. " + err.message,
 						});
 						return;
@@ -207,7 +207,7 @@ Object.assign( ProxyRequest.prototype, {
 		setTimeout((function(obj){
 			return function(){
 				obj.send_response({
-					"error": ProxyRequest.ERROR_AMPQ_TIMEOUT,
+					"code": ProxyRequest.ERROR_AMPQ_TIMEOUT,
 					"message": "Timeout error",
 				});
 				obj.deleteQueue();
@@ -224,18 +224,23 @@ app.post('/rpc/', upload.array(), function (req, res) {
 	
 	if (amqp_channel == null){
 		res.json({
-			"error": ProxyRequest.ERROR_AMPQ_CONNECTION_ERROR,
+			"code": ProxyRequest.ERROR_AMPQ_CONNECTION_ERROR,
 			"message": "AMQP Channel is not defined",
 		});
 		return;
 	}
 	
-	if (req.body == undefined || req.body.cmd == undefined || req.body.data == undefined){
+	if (req.body == undefined || req.body.cmd == undefined){
 		res.json({
-			"error": ProxyRequest.ERROR_UNKOWN,
+			"code": ProxyRequest.ERROR_UNKOWN,
 			"message": "Body is not defined",
 		});
 		return;
+	}
+	
+	var body_data = {};
+	if (req.body.data != undefined){
+		body_data = req.body.data;
 	}
 	
 	var proxy = new ProxyRequest();
@@ -244,7 +249,7 @@ app.post('/rpc/', upload.array(), function (req, res) {
 	proxy.request = req;
 	proxy.response = res;
 	proxy.cmd = req.body.cmd;
-	proxy.data = req.body.data;
+	proxy.data = body_data;
 	
 	console.log("Receive: " + req.body.cmd);
 	
