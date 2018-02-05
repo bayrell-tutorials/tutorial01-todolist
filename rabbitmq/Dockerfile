@@ -1,7 +1,7 @@
 FROM rabbitmq:3.6.14-management
 
-COPY consul.sh /root/consul.sh
-COPY run.sh /root/run.sh
+COPY root/consul.sh /root/consul.sh
+COPY root/run.sh /root/run.sh
 ADD etc/rabbitmq /etc/rabbitmq/
 
 RUN cd ~; \

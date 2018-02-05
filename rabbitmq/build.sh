@@ -10,7 +10,7 @@ case "$1" in
 
   docker)
     rm -rf $BASE_PATH/php-backend/src/vendor
-    docker build ./ -t bayrell/tutorial01_rabbitmq
+    docker build ./ -t tutorial01_rabbitmq
     ;;
 
   *)

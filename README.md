@@ -1,7 +1,16 @@
 # Tutorial 01. Todolist
 
 
-## Build
+## Download docker images
+
+```
+docker pull centos:7
+docker pull consul:1.0.3
+docker pull rabbitmq:3.6.14-management
+```
+
+
+## Build tutorial images
 
 ```
 git clone https://github.com/bayrell-tutorials/tutorial01-todolist
@@ -12,14 +21,8 @@ cd rabbitmq
 ```
 
 
-## Install
+## Install volumes
 
-
-Download docker images:
-```
-docker pull consul:1.0.3
-docker pull bayrell/tutorial01_rabbitmq
-```
 
 Create volumes:
 ```
@@ -39,7 +42,7 @@ docker run -d --name consul --restart=unless-stopped --hostname consul -v consul
 
 Run RabbitMQ:
 ```
-docker run -d --name rabbitmq --restart=unless-stopped --hostname rabbitmq -v rabbitmq_data:/var/lib/rabbitmq -p 5672:5672 -p 15672:15672 -p 15674:15674 -p 25672:25672 -p 61613:61613 bayrell/tutorial01_rabbitmq
+docker run -d --name rabbitmq --restart=unless-stopped --hostname rabbitmq -v rabbitmq_data:/var/lib/rabbitmq -p 5672:5672 -p 15672:15672 -p 15674:15674 -p 25672:25672 -p 61613:61613 tutorial01_rabbitmq
 ```
 
 
