@@ -1,37 +1,54 @@
 # Tutorial 01. Todolist
 
 
-## Download docker images
-
+Download docker images:
 ```
 docker pull centos:7
 docker pull consul:1.0.3
 docker pull rabbitmq:3.6.14-management
+docker pull mongo:3.6.1-jessie
 ```
 
 
-## Build tutorial images
-
+Build tutorial images:
 ```
 git clone https://github.com/bayrell-tutorials/tutorial01-todolist
 cd tutorial01-todolist
 
-cd rabbitmq
-./build.sh
+rabbitmq/build.sh docker
+mongodb/build.sh docker
 ```
-
-
-## Install volumes
 
 
 Create volumes:
 ```
 docker volume create consul_data
 docker volume create rabbitmq_data
+docker volume create mongodb_config
+docker volume create mongodb_data
 ```
 
 
-## Run Tutorial 01
+Create admin user for MongoDB:
+```
+docker run -d --name mongodb_noauth -v mongodb_config:/data/configdb -v mongodb_data:/data/db tutorial01_mongodb
+docker exec -it mongodb_noauth mongo admin
+```
+
+
+Exec command in mongodb shell:
+```
+use admin
+db.createUser({ user: 'jsmith', pwd: 'some-initial-password', roles: [{ role: 'root', db: 'admin' }] })
+exit
+```
+
+
+Stop MongoDB container:
+```
+docker stop mongodb_noauth
+docker rm mongodb_noauth
+```
 
 
 Run Consul:
@@ -45,4 +62,9 @@ Run RabbitMQ:
 docker run -d --name rabbitmq --restart=unless-stopped --hostname rabbitmq -v rabbitmq_data:/var/lib/rabbitmq -p 5672:5672 -p 15672:15672 -p 15674:15674 -p 25672:25672 -p 61613:61613 tutorial01_rabbitmq
 ```
 
+
+Run MongoDB:
+```
+docker run -d --name mongodb --restart=unless-stopped -p 27017:27017 -v mongodb_config:/data/configdb -v mongodb_data:/data/db tutorial01_mongodb
+```
 

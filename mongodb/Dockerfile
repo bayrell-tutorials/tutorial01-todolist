@@ -1,8 +1,7 @@
-FROM rabbitmq:3.6.14-management
+FROM mongo:3.6.1-jessie
 
 COPY root/consul.sh /root/consul.sh
 COPY root/run.sh /root/run.sh
-ADD etc/rabbitmq /etc/rabbitmq/
 
 RUN cd ~; \
 	apt update; \
