@@ -6,5 +6,5 @@
 
 
 # Run MongoDB Server
-mongod
+mongod --bind_ip 0.0.0.0
 
