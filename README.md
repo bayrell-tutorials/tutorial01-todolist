@@ -7,6 +7,7 @@ docker pull centos:7
 docker pull consul:1.0.3
 docker pull rabbitmq:3.6.14-management
 docker pull mongo:3.6.1-jessie
+docker pull node:9.5-alpine
 ```
 
 
@@ -17,6 +18,9 @@ cd tutorial01-todolist
 
 rabbitmq/build.sh docker
 mongodb/build.sh docker
+php71/build.sh docker
+backend-php/build.sh docker
+frontend-nodejs/build.sh docker
 ```
 
 
@@ -67,4 +71,17 @@ Run MongoDB:
 ```
 docker run -d --name mongodb --restart=unless-stopped -p 27017:27017 -v mongodb_config:/data/configdb -v mongodb_data:/data/db tutorial01_mongodb
 ```
+
+
+Run Backend PHP:
+```
+docker run -d --name backend_php --restart=unless-stopped --hostname backend_php tutorial01_backend_php
+```
+
+
+Run NodeJS:
+```
+docker run -d --name nodejs --restart=unless-stopped --hostname nodejs -p 3000:3000 tutorial01_frontend_nodejs
+```
+
 

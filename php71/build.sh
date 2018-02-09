@@ -9,8 +9,8 @@ RETVAL=0
 case "$1" in
 
   docker)
-    rm -rf $BASE_PATH/php-backend/src/vendor
-    docker build ./ -t tutorial01_backend_php
+    docker build ./ -t php71
+    cd ..
     ;;
 
   *)

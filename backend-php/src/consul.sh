@@ -10,8 +10,8 @@ while [ 1 ]; do
 	CONSUL_IP="${GATEWAY}:8500"
 	
 	# Register service in the consul
-	IP=`ifconfig ${INTERFACE} | grep inet |  awk '{print $2}' | sed -n 1p`
-	DATA="{\"ID\": \"rabbitmq_id01\",\"Name\": \"rabbitmq\", \"Address\": \"${IP}\", \"Port\": 5672}"
+	IP=`ifconfig ${INTERFACE} | grep inet | awk '{print $2}' | sed -n 1p`
+	DATA="{\"ID\": \"backend_01\",\"Name\": \"backend\", \"Address\": \"${IP}\", \"Port\": 0}"
 	curl -H "Content-Type: application/json" -X PUT -d "${DATA}" http://${CONSUL_IP}/v1/agent/service/register
 
 	sleep 60
