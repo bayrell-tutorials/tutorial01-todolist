@@ -16,11 +16,25 @@ Build tutorial images:
 git clone https://github.com/bayrell-tutorials/tutorial01-todolist
 cd tutorial01-todolist
 
-rabbitmq/build.sh docker
-mongodb/build.sh docker
-php71/build.sh docker
-backend-php/build.sh docker
-frontend-nodejs/build.sh docker
+cd rabbitmq
+./build.sh docker
+cd ..
+
+cd mongodb
+./build.sh docker
+cd ..
+
+cd php71
+./build.sh docker
+cd .. 
+
+cd backend-php
+./build.sh docker
+cd ..
+
+cd frontend-nodejs
+./build.sh docker
+cd ..
 ```
 
 
@@ -36,6 +50,7 @@ docker volume create mongodb_data
 Create admin user for MongoDB:
 ```
 docker run -d --name mongodb_noauth -v mongodb_config:/data/configdb -v mongodb_data:/data/db tutorial01_mongodb
+sleep 5
 docker exec -it mongodb_noauth mongo admin
 ```
 

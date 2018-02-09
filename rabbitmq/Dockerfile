@@ -6,6 +6,6 @@ ADD etc/rabbitmq /etc/rabbitmq/
 
 RUN cd ~; \
 	apt update; \
-	apt install net-tools curl mc nano less -y
+	apt install net-tools iproute curl mc nano less -y
 
 CMD ["/root/run.sh"]
