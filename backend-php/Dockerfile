@@ -1,4 +1,4 @@
-FROM bayrell/php71
+FROM bayrell/tutorial01_php71
 
 
 ADD src /srv/backend-php/

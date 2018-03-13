@@ -9,7 +9,7 @@ RETVAL=0
 case "$1" in
 
   docker)
-    docker build ./ -t tutorial01_mongodb
+    docker build ./ -t bayrell/tutorial01_mongodb
     ;;
 
   *)

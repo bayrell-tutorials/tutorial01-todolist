@@ -11,7 +11,7 @@ case "$1" in
   docker)
     rm -rf $BASE_PATH/frontend-nodejs/src/node_modules
     rm -rf $BASE_PATH/frontend-nodejs/src/web/assets
-    docker build ./ -t tutorial01_frontend_nodejs
+    docker build ./ -t bayrell/tutorial01_frontend_nodejs
     ;;
 
   *)

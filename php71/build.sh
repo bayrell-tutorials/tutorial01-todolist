@@ -9,7 +9,7 @@ RETVAL=0
 case "$1" in
 
   docker)
-    docker build ./ -t bayrell/php71
+    docker build ./ -t bayrell/tutorial01_php71
     cd ..
     ;;
 
