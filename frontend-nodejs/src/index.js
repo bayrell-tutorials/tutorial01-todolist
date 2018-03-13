@@ -7,7 +7,7 @@ var expressWs = require('express-ws')(app);
 var amqp = require('amqplib/callback_api');
 
 
-var AMQP_HOST = "10.0.0.100";
+var AMQP_HOST = "rabbitmq.service.consul";
 var AMQP_PORT = 5672;
 var AMQP_LOGIN = "guest";
 var AMQP_PASSWORD = "guest";

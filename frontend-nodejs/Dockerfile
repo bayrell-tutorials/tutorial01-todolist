@@ -5,9 +5,7 @@ ADD src /srv/frontend-nodejs/
 
 RUN echo "[1] Install system components"; \
     apk update; \
-    apk add bash; \
-    apk add git; \
-    apk add curl; \
+    apk add bash git curl nano mc; \
     npm install bower -g --allow-root; \
     echo "[2] Install backend"; \
     cd /srv/frontend-nodejs; \

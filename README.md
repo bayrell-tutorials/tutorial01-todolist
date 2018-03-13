@@ -1,10 +1,18 @@
 # Tutorial 01. Todolist
 
-**Warning!** This packages are open ports, in external network:
+
+**Warning!** This docker images are open ports, in external network:
+
 RabbitMQ: 5672, 15672, 15674, 25672, 61613
+
 Consul: 53, 8500:8500
+
 MongoDB: 27017
+
 NodeJS: 3000
+
+**If you run it, you must close this ports by iptables from external network**
+
 
 Download docker images:
 ```

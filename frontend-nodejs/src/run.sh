@@ -15,6 +15,6 @@ while [ 1 ]; do
     CMD="node index.js"
     echo "Run $CMD"
     eval $CMD
-    sleep 5
+    sleep 10
 done
 
