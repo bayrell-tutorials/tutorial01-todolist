@@ -53,7 +53,7 @@ docker rm mongodb_noauth
 
 Run Consul:
 ```
-docker run -d --name consul --restart=unless-stopped --hostname consul -v consul_data:/consul/data -p 53:8600 -p 53:8600/udp -p 8500:8500 consul:1.0.3 consul agent -dev -node=node01 -client=0.0.0.0 -advertise=10.0.0.100 -data-dir=/consul/data
+docker run -d --name consul --restart=unless-stopped --hostname consul -v consul_data:/consul/data -p 53:8600 -p 53:8600/udp -p 8500:8500 consul:1.0.3 consul agent -dev -node=node01 -client=0.0.0.0 -advertise=10.0.0.100 -data-dir=/consul/data -recursor 8.8.8.8
 ```
 
 Run RabbitMQ:
