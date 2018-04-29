@@ -72,8 +72,8 @@ docker swarm update --task-history-limit=1
 
 ```
 git clone https://github.com/bayrell-tutorials/tutorial01-todolist
-cd docker
-docker stack deploy --compose-file compose1.yaml prod
+cd tutorial01-todolist && cd docker
+docker stack deploy --compose-file compose.yaml prod
 ```
 
 
