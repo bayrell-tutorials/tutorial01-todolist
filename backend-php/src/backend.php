@@ -1,11 +1,11 @@
 #!/usr/bin/env php71
 <?php
 
-define ("MONGODB_HOST", "mongodb.service.consul");
+define ("MONGODB_HOST", "prod_mongodb");
 define ("MONGODB_PORT", 27017);
 define ("MONGODB_USERNAME", 'jsmith');
 define ("MONGODB_PASSWORD", 'some-initial-password');
-define ("AMQP_HOST", "rabbitmq.service.consul");
+define ("AMQP_HOST", "prod_rabbitmq");
 define ("AMQP_PORT", 5672);
 define ("AMQP_LOGIN", "guest");
 define ("AMQP_PASSWORD", "guest");

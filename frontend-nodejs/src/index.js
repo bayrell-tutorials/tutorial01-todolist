@@ -7,7 +7,7 @@ var expressWs = require('express-ws')(app);
 var amqp = require('amqplib/callback_api');
 
 
-var AMQP_HOST = "rabbitmq.service.consul";
+var AMQP_HOST = "prod_rabbitmq";
 var AMQP_PORT = 5672;
 var AMQP_LOGIN = "guest";
 var AMQP_PASSWORD = "guest";
@@ -138,8 +138,8 @@ Object.assign( ProxyRequest.prototype, {
 			
 			// Consume options
 			{
-				noAck: true, // The broker won’t expect an acknowledgement of messages delivered to this consumer
-				exclusive: true,  // The broker won’t let anyone else consume from this queue
+				noAck: true, // The broker wonï¿½t expect an acknowledgement of messages delivered to this consumer
+				exclusive: true,  // The broker wonï¿½t let anyone else consume from this queue
 			}
 		);
 		

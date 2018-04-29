@@ -1,0 +1,156 @@
+# Run:
+# docker stack deploy --compose-file compose.yaml prod
+# docker service update prod_mongodb
+# docker service update prod_rabbitmq
+# docker service update prod_backend_php
+# docker service update prod_frontend_nodejs
+
+
+version: "3.3"
+
+services:
+  
+  
+  mongodb:
+    image: bayrell/mongodb:latest
+    labels:
+      name: mongodb
+      version: 1.0
+    volumes:
+      - "mongodb_config:/data/configdb"
+      - "mongodb_data:/data/db"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 5s
+      restart_policy:
+        condition: "on-failure"
+        delay: 10s
+        window: 120s
+      placement:
+        constraints: 
+          - "node.role == manager"
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+  
+  
+  
+  rabbitmq:
+    image: bayrell/rabbitmq:latest
+    labels:
+      name: rabbitmq
+      version: 1.0
+    volumes:
+      - "rabbitmq_data:/var/lib/rabbitmq"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 5s
+      restart_policy:
+        condition: "on-failure"
+        delay: 10s
+        window: 120s
+    ports:
+      - "15672:15672"
+    networks:
+      - backend
+  
+  
+  
+  backend_php:
+    image: bayrell/tutorial01_backend_php:latest
+    labels:
+      name: backend_php
+      version: 1.0
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 5s
+      restart_policy:
+        condition: "on-failure"
+        delay: 10s
+        window: 120s
+    networks:
+      - backend
+  
+  
+  
+  frontend_nodejs:
+    image: bayrell/tutorial01_frontend_nodejs:latest
+    labels:
+      name: frontend_nodejs
+      version: 1.0
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 5s
+      restart_policy:
+        condition: "on-failure"
+        delay: 10s
+        window: 120s
+    ports:
+      - "3000:3000"      
+    networks:
+      - backend  
+  
+  
+  
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: 
+          - "node.role == manager"
+      
+    networks:
+      - manager  
+
+
+
+networks:
+  
+  manager:
+    driver: overlay
+    attachable: true
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.199.0.0/16
+  
+  backend:
+    driver: overlay
+    attachable: true
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.200.0.0/16
+
+  frontend:
+    driver: overlay
+    attachable: true
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.201.0.0/16      
+      
+      
+volumes:
+  mongodb_config:
+  mongodb_data:
+  rabbitmq_data:
+  

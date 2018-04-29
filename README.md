@@ -3,39 +3,92 @@
 
 **Warning!** This docker images are open ports, in external network:
 
-RabbitMQ: 5672, 15672, 15674, 25672, 61613
-
-Consul: 53, 8500:8500
+RabbitMQ: 15672
 
 MongoDB: 27017
 
 NodeJS: 3000
 
-**If you run it, you must close this ports by iptables from external network**
+Visualizer: 8080
+
+**If you run it, you must close this ports by iptables from external network. Or run it in virtual machine !!!**
 
 
-Download docker images:
+
+## Install docker on Ubuntu 16.04
+
+Add key of the docker repository:
 ```
-docker pull consul:1.0.3
-docker pull bayrell/tutorial01_mongodb
-docker pull bayrell/tutorial01_rabbitmq
-docker pull bayrell/tutorial01_backend_php
-docker pull bayrell/tutorial01_frontend_nodejs
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-Create volumes:
+Check key:
+apt-key fingerprint 0EBFCD88
 ```
-docker volume create consul_data
-docker volume create rabbitmq_data
-docker volume create mongodb_config
-docker volume create mongodb_data
+pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release (CE deb) <docker@docker.com>
+sub   4096R/F273FCD8 2017-02-22
 ```
 
-Create admin user for MongoDB:
+Add docker repository:
 ```
-docker run -d --name mongodb_noauth -v mongodb_config:/data/configdb -v mongodb_data:/data/db bayrell/tutorial01_mongodb
-sleep 5
-docker exec -it mongodb_noauth mongo admin
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
+
+Install docker:
+```
+apt-get update
+apt-get install docker-ce
+```
+
+
+
+## Install docker cluster
+
+Init cluster:
+```
+docker swarm init --advertise-addr YOU-EXTERNAL-IP
+```
+
+View worker key:
+```
+docker swarm join-token worker
+```
+
+View manager key:
+```
+docker swarm join-token manager
+```
+
+
+For test server you may limit history:
+```
+docker swarm update --task-history-limit=1
+```
+
+
+## Deploy Tutorial01
+
+```
+git clone https://github.com/bayrell-tutorials/tutorial01-todolist
+cd docker
+docker stack deploy --compose-file compose1.yaml prod
+```
+
+
+## Init mongodb password:
+
+Login over ssh to manager host.
+
+Get ID of mongodb container:
+```
+docker ps |grep mongo | awk '{ print $1}'
+```
+
+Attach to docker container:
+```
+docker exec -it MONGODB-CONTAINER-ID mongo admin
 ```
 
 Exec command in mongodb shell:
@@ -45,38 +98,17 @@ db.createUser({ user: 'jsmith', pwd: 'some-initial-password', roles: [{ role: 'r
 exit
 ```
 
-Stop MongoDB container:
-```
-docker stop mongodb_noauth
-docker rm mongodb_noauth
-```
 
-Run Consul:
-```
-docker run -d --name consul --restart=unless-stopped --hostname consul -v consul_data:/consul/data -p 53:8600 -p 53:8600/udp -p 8500:8500 consul:1.0.3 consul agent -dev -node=node01 -client=0.0.0.0 -advertise=10.0.0.100 -data-dir=/consul/data -recursor 8.8.8.8
-```
+## Web addresses
 
-Run RabbitMQ:
-```
-docker run -d --name rabbitmq --restart=unless-stopped --hostname rabbitmq -v rabbitmq_data:/var/lib/rabbitmq -p 5672:5672 -p 15672:15672 -p 15674:15674 -p 25672:25672 -p 61613:61613 bayrell/tutorial01_rabbitmq
-```
+http://CLUSTER-IP:3000/ - Project IP Address.
 
-Run MongoDB:
-```
-docker run -d --name mongodb --restart=unless-stopped -p 27017:27017 -v mongodb_config:/data/configdb -v mongodb_data:/data/db bayrell/tutorial01_mongodb
-```
+http://CLUSTER-IP:8080/ - Docker visualizer
 
-Run Backend PHP:
-```
-docker run -d --name backend_php --restart=unless-stopped --hostname backend_php bayrell/tutorial01_backend_php
-```
+http://CLUSTER-IP:15672/ - RabbitMQ Web Manager. Login guest, password: guest.
 
-Run NodeJS:
-```
-docker run -d --name nodejs --restart=unless-stopped --hostname nodejs -p 3000:3000 bayrell/tutorial01_frontend_nodejs
-```
+tcp://CLUSTER-IP:27017/ - MongoDB socket
 
-Open web browser http://localhost:3000/
 
 
 # Build images
@@ -84,28 +116,14 @@ Open web browser http://localhost:3000/
 Download docker images:
 ```
 docker pull centos:7
-docker pull consul:1.0.3
-docker pull rabbitmq:3.6.14-management
-docker pull mongo:3.6.1-jessie
-docker pull node:9.5-alpine
+docker pull bayrell/tutorial01_php71
+docker pull bayrell/nodejs
 ```
 
 Build tutorial images:
 ```
 git clone https://github.com/bayrell-tutorials/tutorial01-todolist
 cd tutorial01-todolist
-
-cd rabbitmq
-./build.sh docker
-cd ..
-
-cd mongodb
-./build.sh docker
-cd ..
-
-cd php71
-./build.sh docker
-cd .. 
 
 cd backend-php
 ./build.sh docker

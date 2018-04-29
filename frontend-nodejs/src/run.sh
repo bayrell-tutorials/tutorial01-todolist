@@ -4,10 +4,6 @@ SCRIPT=$(readlink -f $0)
 SCRIPT_PATH=`dirname $SCRIPT`
 
 
-# Run consul loop service register
-${SCRIPT_PATH}/consul.sh &
-
-
 cd /srv/frontend-nodejs/
 
 # Run nodejs frontend

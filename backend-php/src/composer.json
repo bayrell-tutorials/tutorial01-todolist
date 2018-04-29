@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-	"php-amqplib/php-amqplib": ">=2.6.1",
-        "mongodb/mongodb": "^1.2"
+		"php-amqplib/php-amqplib": ">=2.6.1",
+		"mongodb/mongodb": "^1.2"
     }
 }
